@@ -3,6 +3,7 @@ package com.eprakash.learn.microservices.user;
 import java.net.URI;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.eprakash.learn.microservices.user.domain.User;
+import com.eprakash.learn.microservices.user.service.UserDaoService;
 
 @RestController
 public class UserController {
@@ -48,25 +52,22 @@ public class UserController {
 	// findbyid
 	
 	@GetMapping(path="/users/{id}")
-	public User getUserById(@PathVariable int id) {
+	public User getUserById(@PathVariable long id) {
 		
-		User userById = userDaoService.getUserById(id);
+		Optional<User> userById = userDaoService.getUserById(id);
 		if(userById==null){
 			throw new UserNotFoundException("id "+id);
 		}
-		return userById;
+		return userById.get();
 		
 	}
 	
 
 	@DeleteMapping(path="/users/{id}")
-	public User deleteUserById(@PathVariable int id) {
+	public String deleteUserById(@PathVariable long id) {
 		
-		User userById = userDaoService.deleteUserById(id);
-		if(userById==null){
-			throw new UserNotFoundException("id "+id);
-		}
-		return userById;
+		userDaoService.deleteUserById(id);
+		return "Deleted";
 		
 	}
 	
