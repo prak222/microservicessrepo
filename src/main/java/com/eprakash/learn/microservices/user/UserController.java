@@ -38,20 +38,20 @@ public class UserController {
 	}
 
 // save
-	@PostMapping(path="/users")
-	public ResponseEntity<Object> save(@RequestBody User user) {
+	@PostMapping("/users")
+	public void save(@RequestBody User user) {
 		
 		User savedUser= userDaoService.save(user);
 		
 		 URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId())
 	                .toUri();
 	
-	        return ResponseEntity.created(location).build();
+	     //   return ResponseEntity.created(location).build();
 		
 	}
 	// findbyid
 	
-	@GetMapping(path="/users/{id}")
+	@GetMapping("/users/{id}")
 	public User getUserById(@PathVariable long id) {
 		
 		Optional<User> userById = userDaoService.getUserById(id);
@@ -63,7 +63,7 @@ public class UserController {
 	}
 	
 
-	@DeleteMapping(path="/users/{id}")
+	@DeleteMapping("/users/{id}")
 	public String deleteUserById(@PathVariable long id) {
 		
 		userDaoService.deleteUserById(id);

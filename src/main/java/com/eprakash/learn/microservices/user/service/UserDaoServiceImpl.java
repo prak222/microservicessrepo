@@ -3,6 +3,7 @@ package com.eprakash.learn.microservices.user.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eprakash.learn.microservices.user.domain.User;
@@ -12,6 +13,7 @@ import com.eprakash.learn.microservices.user.repository.UserRepository;
 public class UserDaoServiceImpl implements UserDaoService{
 
 	// find all
+@Autowired
 private UserRepository userRepo;
 
 public UserDaoServiceImpl (UserRepository userRepo)
